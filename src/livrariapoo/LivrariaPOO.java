@@ -65,7 +65,7 @@ public class LivrariaPOO {
         System.out.println("1 - Cadastrar" + tpCad);
         System.out.println("2 - Editar" + tpCad);
         System.out.println("3 - Listar" + tpCad + "s");
-        System.out.println("1 - Deletar" + tpCad);
+        System.out.println("4 - Deletar" + tpCad);
         System.out.println("0 - Voltar");
         System.out.println("Escolha uma opção:");
     }
@@ -85,20 +85,20 @@ public class LivrariaPOO {
         do {
             cpf = leia.nextLine();
             cpfIs = Validadores.isCPF(cpf);
-            if(!cpfIs) {
+            if (!cpfIs) {
                 System.out.println("CPF inválido, \nDeseja tentar novamente? 1 - Sim | 2 - Não");
                 opCPF = leiaNumInt();
                 if (opCPF == 1) {
                     System.out.print("\nInforme o CPF: ");
-                }else if (opCPF == 2) {
+                } else if (opCPF == 2) {
                     System.out.println("\nCadastro cancelado pelo usuário!");
                     break;
-               }
+                }
             }
         } while (!cpfIs);
         if (cadCliente.getClienteCPF(cpf) != null) {
             System.out.println("Cliente já cadastrado!");
-        }else{
+        } else {
             System.out.print("\nInforme o nome: ");
             nomeCliente = leia.nextLine();
             System.out.print("\nInforme o endereço: ");
@@ -111,6 +111,34 @@ public class LivrariaPOO {
             System.out.println("Cliente cadastrado com sucesso!");
         }
     }//fim cadastrar cliente
+
+    public static void imprimirListaCliente() {
+        System.out.println("-- Lista de Clientes --");
+        for (Cliente cli : cadCliente.getClientes()) {
+            System.out.println("\n---");
+            System.out.println("Nome:\t" + cli.getNomeCliente());//\t faz tabulação
+            System.out.println("CPF:\t" + cli.getCpf());
+            System.out.println("End.:\t" + cli.getEndereco());
+            System.out.println("Fone:\t" + cli.getTelefone());
+        }
+    }//fim imprimir lista de cliente
+    
+    public static void deletarCliente() {
+        System.out.println("-- Deletar Cliente --");
+        System.out.print("\nInforme o CPF:");
+        String cpf = leia.next();
+        if (Validadores.isCPF(cpf)) {
+            Cliente cli = cadCliente.getClienteCPF(cpf);
+            if (cli != null) {
+                cadCliente.removeCliente(cli);
+                System.out.println("Cliente deletado com sucesso!");
+            } else {
+                System.out.println("Cliente não consta na base de dados!");
+            }
+        } else {
+            System.out.println("CPF inválido!");
+        }
+    }//fim deletar cliente
 
     /**
      * @param args the command line arguments
@@ -151,10 +179,11 @@ public class LivrariaPOO {
                                 break;
                             case 3:
                                 System.out.println("\n-- Listar --\n");
-                                System.out.println(cadCliente.getClientes().toString());
+                                imprimirListaCliente();
                                 break;
                             case 4:
                                 System.out.println("\n-- Deletar --\n");
+                                deletarCliente();
                                 break;
                             case 0:
                                 System.out.println("\n-- Menu Principal --");
