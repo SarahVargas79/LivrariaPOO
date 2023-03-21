@@ -112,6 +112,72 @@ public class LivrariaPOO {
         }
     }//fim cadastrar cliente
 
+    private static void editarCliente() {
+        System.out.println("-- Editar Cliente --");
+        System.out.print("\nInforme o CPF:");
+        String cpf = leia.nextLine();
+        if (Validadores.isCPF(cpf)) {
+            Cliente cli = cadCliente.getClienteCPF(cpf);
+            if (cli != null) {
+                System.out.println("1 - Nome:\t" + cli.getNomeCliente());
+                System.out.println("2 - End.:\t" + cli.getEndereco());
+                System.out.println("3 - Fone:\t" + cli.getTelefone());
+                System.out.println("4 - Todos os campos acima?");
+                System.out.print("Qual campo deseja alterar? \nDigite aqui:");
+                int opEditar = leiaNumInt();
+                
+                if (opEditar == 1 || opEditar == 4) {// "||" pipe significa "ou"
+                    System.out.print("\nInforme o nome: ");
+                    cli.setNomeCliente(leia.nextLine());
+                }
+                if (opEditar == 2 || opEditar == 4) {
+                    System.out.print("\nInforme o endereço: ");
+                    cli.setEndereco(leia.nextLine());
+                }
+                if (opEditar == 3 || opEditar == 4) {
+                    System.out.print("\nInforme o telefone: ");
+                    cli.setTelefone(leia.nextLine());
+                }
+                if (opEditar < 1 || opEditar > 4) {
+                    System.out.println("Opção inválida");
+                }
+                /*
+                switch (opEditar) {
+                    case 1:
+                        System.out.print("\nInforme o nome: ");
+                        cli.setNomeCliente(leia.nextLine());
+                        break;
+                    case 2:
+                        System.out.print("\nInforme o endereço: ");
+                        cli.setEndereco(leia.nextLine());
+                        break;
+                    case 3:
+                        System.out.print("\nInforme o telefone: ");
+                        cli.setTelefone(leia.nextLine());
+                        break;
+                    case 4:
+                        System.out.print("\nInforme todos os campos abaixo: ");
+                        System.out.print("\nInforme o nome: ");
+                        cli.setNomeCliente(leia.nextLine());
+                        System.out.print("\nInforme o endereço: ");
+                        cli.setEndereco(leia.nextLine());
+                        System.out.print("\nInforme o telefone: ");
+                        cli.setTelefone(leia.nextLine());
+                        break;
+                    default:
+                        System.out.println("Opção inválida");
+                        break;
+                }
+                */
+                System.out.println("Cliente:\n" + cli.toString());
+            } else {
+                System.out.println("Cliente não cadastrado!");
+            }
+        } else {
+            System.out.println("CPF inválido!");
+        }
+    }//fim editar cliente
+
     public static void imprimirListaCliente() {
         System.out.println("-- Lista de Clientes --");
         for (Cliente cli : cadCliente.getClientes()) {
@@ -122,7 +188,7 @@ public class LivrariaPOO {
             System.out.println("Fone:\t" + cli.getTelefone());
         }
     }//fim imprimir lista de cliente
-    
+
     public static void deletarCliente() {
         System.out.println("-- Deletar Cliente --");
         System.out.print("\nInforme o CPF:");
@@ -176,6 +242,7 @@ public class LivrariaPOO {
                                 break;
                             case 2:
                                 System.out.println("\n-- Editar --\n");
+                                editarCliente();
                                 break;
                             case 3:
                                 System.out.println("\n-- Listar --\n");
