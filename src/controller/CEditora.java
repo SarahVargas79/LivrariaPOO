@@ -59,7 +59,7 @@ public class CEditora {
       * @param cnpj
       * @return 
       */
-   public Editora getEditoraCNPJ(String cnpj) { //Método para chamar um Cliente específico.
+   public Editora getEditoraCNPJ(String cnpj) { //Método para chamar uma Editora específico.
        Editora e = null; //Inicializa como nulo.
        for (Editora editora : editoras) {
            if(editora.getCnpj().equals(cnpj)) {

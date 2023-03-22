@@ -74,7 +74,7 @@ public class CLivro {
                 li = livro;
                 break;
             }
-        }//Percorre a lista de clientes e comparar os valores se o cnpj é igual ao que está na lista.
+        }//Percorre a lista de clientes e comparar os valores se o isbn é igual ao que está na lista.
 
         return li;
     }
