@@ -13,6 +13,7 @@ import java.util.Scanner;
 import static livrariapoo.LivrariaPOO.leiaNumInt;
 import model.Cliente;
 import model.Editora;
+import model.Livro;
 import util.Validadores;
 
 /**
@@ -35,6 +36,18 @@ public class LivrariaPOO {
         } catch (Exception e) {//O bloco try diz "que tal código pode gerar exceção(erro)" e o bloco catch faz o "tratamento  para essa exceção(erro)".
             System.out.println("Tente novamente!");
             leiaNumInt();
+        }
+        return num;
+    }
+
+    public static float leiaNumFloat() {//Dois scanner para não crachar a aplicação.
+        Scanner leiaNum = new Scanner(System.in);
+        float num = 99; //valor inválido
+        try {//try como um "TENTAR EXECUTAR UM TRECHO DE CÓDIGO", se não executar esse trecho vai se para o cath onde as chamadas exceções (erros) são tratadas, se não ele é ignorado.
+            num = leiaNum.nextFloat();
+        } catch (Exception e) {//O bloco try diz "que tal código pode gerar exceção(erro)" e o bloco catch faz o "tratamento  para essa exceção(erro)".
+            System.out.println("Tente novamente!");
+            leiaNumFloat();
         }
         return num;
     }
@@ -180,7 +193,7 @@ public class LivrariaPOO {
         }
     }//fim editar cliente
 
-    public static void imprimirListaCliente() {
+    public static void imprimirListaClientes() {
         System.out.println("-- Lista de Clientes --");
         for (Cliente cli : cadCliente.getClientes()) {
             System.out.println("\n---");
@@ -189,7 +202,7 @@ public class LivrariaPOO {
             System.out.println("End.:\t" + cli.getEndereco());
             System.out.println("Fone:\t" + cli.getTelefone());
         }
-    }//fim imprimir lista de cliente
+    }//fim imprimir lista de clientes
 
     public static void deletarCliente() {
         System.out.println("-- Deletar Cliente --");
@@ -296,7 +309,7 @@ public class LivrariaPOO {
         }
     }//fim editar editora
 
-    private static void imprimirListaEditora() {
+    private static void imprimirListaEditoras() {
         System.out.println("-- Lista de Editoras --");
         for (Editora ed : cadEditora.getEditoras()) {
             System.out.println("\n---");
@@ -306,7 +319,7 @@ public class LivrariaPOO {
             System.out.println("Telefone:\t" + ed.getTelefone());
             System.out.println("Gerente: \t" + ed.getGerente());
         }
-    }//fim imprimir lista de editora
+    }//fim imprimir lista de editoras
 
     private static void deletarEditora() {
         System.out.println("-- Deletar Editora --");
@@ -324,6 +337,78 @@ public class LivrariaPOO {
             System.out.println("\nCNPJ inválido");
         }
     }//fim deletar editora
+
+    private static void cadastrarLivro() {
+        System.out.println("-- Cadastro de Livro --");
+        System.out.print("\nInforme o ISBN: ");
+        String isbn = leia.nextLine();
+        if (cadLivro.getLivroISBN(isbn) != null) {
+            System.out.println("\nLivro já cadastrado!");
+        } else {
+            int idLivro = cadLivro.geraID();
+            System.out.print("\nInforme o titulo: ");
+            String titulo = leia.nextLine();
+            System.out.print("\nInforme o autor: ");
+            String autor = leia.nextLine();
+            System.out.print("\nInforme o assunto: ");
+            String assunto = leia.nextLine();
+            System.out.print("\nInforme o estoque: ");
+            int estoque = leiaNumInt();
+            System.out.print("\nInforme o preço: ");
+            float preco = leiaNumFloat();
+            boolean isCNPJ = false;
+            Editora idEditora = null;
+            do {
+                System.out.print("\nInforme o CNPJ da editora: ");
+                String cnpj = leia.nextLine();
+                isCNPJ = Validadores.isCNPJ(cnpj);
+                if (isCNPJ) {
+                    idEditora = cadEditora.getEditoraCNPJ(cnpj);
+                    if (idEditora == null) {
+                        System.out.println("\nEditora não cadastrada");
+                        isCNPJ = false;
+                    } else {
+                        System.out.println("\nEditora: " + idEditora.getNomeEditora());
+                    }
+                } else {
+                    System.out.println("\nCNPJ inválido!");
+                }
+            } while (!isCNPJ);
+            Livro li = new Livro(idLivro, titulo, autor, assunto, isbn, estoque, preco, idEditora);
+            cadLivro.addLivro(li);
+            System.out.println("\nLivro cadastrado com sucesso!");
+        }
+    }//fim cadastrar Livro
+
+    private static void editarLivro() {
+
+    }//fim editar livro
+
+    private static void imprimirListaLivros() {
+        System.out.println("-- Lista de Livros --");
+        for (Livro livro : cadLivro.getLivros()) {
+            System.out.println("---\nTitulo:     \t" + livro.getTitulo());
+            System.out.println("Autor:     \t" + livro.getAutor());
+            System.out.println("Asssunto:\t" + livro.getAssunto());
+            System.out.println("Isbn:       \t" + livro.getIsbn());
+            System.out.println("Estoque: \t" + livro.getEstoque());
+            System.out.println("Preço:    \t" + livro.getPreco());
+            System.out.println("Editora:  \t" + livro.getIdEditora().getNomeEditora());
+        }
+    }//fim imprimir lista de livros
+
+    private static void deletarLivro() {
+        System.out.println("-- Deletar Livro --");
+        System.out.print("\nInforme o ISBN: ");
+        String isbn = leia.nextLine();
+        Livro li = cadLivro.getLivroISBN(isbn);
+        if (li != null) {
+            System.out.println("\nLivro: " + li.getTitulo() + " será deletado!");
+            cadLivro.removeLivros(li);
+        } else {
+            System.out.println("\nISBN não encontrado!");
+        }
+    }//fim deletar livro
 
     /**
      * @param args the command line arguments
@@ -361,6 +446,8 @@ public class LivrariaPOO {
                                     cadastrarCliente();
                                 } else if (opM == 2) {
                                     cadastrarEditora();
+                                } else if (opM == 3) {
+                                    cadastrarLivro();
                                 }
                                 break;
                             case 2:
@@ -369,14 +456,18 @@ public class LivrariaPOO {
                                     editarCliente();
                                 } else if (opM == 2) {
                                     editarEditora();
+                                } else if (opM == 3) {
+                                    editarLivro();
                                 }
                                 break;
                             case 3:
                                 System.out.println("\n-- Listar --\n");
                                 if (opM == 1) {
-                                    imprimirListaCliente();
+                                    imprimirListaClientes();
                                 } else if (opM == 2) {
-                                    imprimirListaEditora();
+                                    imprimirListaEditoras();
+                                } else if (opM == 3) {
+                                    imprimirListaLivros();
                                 }
                                 break;
                             case 4:
@@ -385,8 +476,9 @@ public class LivrariaPOO {
                                     deletarCliente();
                                 } else if (opM == 2) {
                                     deletarEditora();
+                                } else if (opM == 3) {
+                                    deletarLivro();
                                 }
-
                                 break;
                             case 0:
                                 System.out.println("\n-- Menu Principal --");
@@ -411,4 +503,5 @@ public class LivrariaPOO {
         } while (opM != 0);//fim sistema
 
     }
+
 }

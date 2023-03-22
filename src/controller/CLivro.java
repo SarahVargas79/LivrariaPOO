@@ -36,7 +36,6 @@ public class CLivro {
 
     public void mockLivros() {
        
-        CEditora ed = new CEditora();//Contrutor chamado
         Livro li1 = new Livro();
         li1.setIdLivro(this.geraID());
         li1.setTitulo("Senhor do Anéis");
@@ -45,18 +44,18 @@ public class CLivro {
         li1.setIsbn("9788845292613");
         li1.setEstoque(8);
         li1.setPreco((float) 36.30);
-        li1.setIdEditora(LivrariaPOO.cadEditora.getEditoraCNPJ("12345678000100"));//espera um objeto editora - chamar construtor
+        li1.setIdEditora(LivrariaPOO.cadEditora.getEditoraCNPJ("11392757000194"));//espera um objeto editora - chamar construtor
         this.addLivro(li1);
 
         Livro li2 = new Livro();
         li2.setIdLivro(this.geraID());
         li2.setTitulo("Crepúsculo");
         li2.setAutor("Stephenie Meyer");
-        li2.setAssunto("Fantasia e Roamce");
+        li2.setAssunto("Fantasia e Romance");
         li2.setIsbn("9780316033411");
         li2.setEstoque(10);
         li2.setPreco((float) 44.90);
-        li2.setIdEditora(LivrariaPOO.cadEditora.getEditoraCNPJ("14424678000200"));
+        li2.setIdEditora(LivrariaPOO.cadEditora.getEditoraCNPJ("55264968000117"));
         this.addLivro(li2);
     }
 

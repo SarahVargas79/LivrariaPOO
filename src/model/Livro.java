@@ -17,7 +17,7 @@ public class Livro {
     private String isbn;
     private int estoque;
     private float preco;
-    private Editora idEditora;
+    private Editora idEditora;//agregração de classe
 
     public Livro() {
     }

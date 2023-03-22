@@ -38,7 +38,7 @@ public class CEditora {
         Editora e1 = new Editora();
         e1.setIdEditora(this.geraID());
         e1.setNomeEditora("Saraiva");
-        e1.setCnpj("12345678000100");
+        e1.setCnpj("11392757000194");
         e1.setEndereco("Rua Marechal 215");
         e1.setTelefone("5130632789");
         e1.setGerente("Roberto Santos");
@@ -47,7 +47,7 @@ public class CEditora {
         Editora e2 = new Editora();
         e2.setIdEditora(this.geraID());
         e2.setNomeEditora("Companhia da Letras");
-        e2.setCnpj("14424678000200");
+        e2.setCnpj("55264968000117");
         e2.setEndereco("Rua das Flores");
         e2.setTelefone("5131258974");
         e2.setGerente("Luís Nunes");
