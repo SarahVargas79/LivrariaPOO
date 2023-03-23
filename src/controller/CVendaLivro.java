@@ -39,7 +39,7 @@ public class CVendaLivro {
     public void mockVendaLivros() {
         VendaLivro vl1 = new VendaLivro();
         vl1.setIdVendaLivro(this.geraID());
-        vl1.setIdCliente(LivrariaPOO.cadCliente.getClienteCPF("57989036207")); 
+        vl1.setIdCliente(LivrariaPOO.cadCliente.getClienteCPF("96174272060")); 
         ArrayList<Livro> livros1 = new ArrayList<>();
         livros1.add(LivrariaPOO.cadLivro.getLivroISBN("9788845292613"));
         livros1.add(LivrariaPOO.cadLivro.getLivroISBN("9780316033411"));
