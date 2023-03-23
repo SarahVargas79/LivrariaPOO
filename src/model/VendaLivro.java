@@ -6,6 +6,7 @@
 package model;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 
@@ -18,18 +19,16 @@ public class VendaLivro {
     private int idVendaLivro;
     private Cliente idCliente;
     private ArrayList<Livro> livros;
-    private int qtd;
     private float subTotal;
     private LocalDate dataVenda;
 
     public VendaLivro() {
     }
 
-    public VendaLivro(int idVendaLivro, Cliente idCliente, ArrayList<Livro> livros, int qtd, float subTotal, LocalDate dataVenda) {
+    public VendaLivro(int idVendaLivro, Cliente idCliente, ArrayList<Livro> livros, float subTotal, LocalDate dataVenda) {
         this.idVendaLivro = idVendaLivro;
         this.idCliente = idCliente;
         this.livros = livros;
-        this.qtd = qtd;
         this.subTotal = subTotal;
         this.dataVenda = dataVenda;
     }
@@ -58,14 +57,6 @@ public class VendaLivro {
         this.livros = livros;
     }
 
-    public int getQtd() {
-        return qtd;
-    }
-
-    public void setQtd(int qtd) {
-        this.qtd = qtd;
-    }
-
     public float getSubTotal() {
         return subTotal;
     }
@@ -84,7 +75,7 @@ public class VendaLivro {
 
     @Override
     public String toString() {
-        return "VendaLivro{" + "idVendaLivro=" + idVendaLivro + ", idCliente=" + idCliente + ", livros=" + livros + ", qtd=" + qtd + ", subTotal=" + subTotal + ", dataVenda=" + dataVenda + '}';
+        return "VendaLivro{" + "idVendaLivro=" + idVendaLivro + ", idCliente=" + idCliente + ", livros=" + livros + ", subTotal=" + subTotal + ", dataVenda=" + dataVenda.format(DateTimeFormatter.ofPattern("d/M/y")) + '}';
     }
 
     

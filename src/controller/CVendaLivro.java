@@ -44,9 +44,8 @@ public class CVendaLivro {
         livros1.add(LivrariaPOO.cadLivro.getLivroISBN("9788845292613"));
         livros1.add(LivrariaPOO.cadLivro.getLivroISBN("9780316033411"));
         vl1.setLivros(livros1);
-        vl1.setQtd(30);
         vl1.setSubTotal((float)40.00);
-        vl1.setDataVenda(LocalDate.parse("2023-03-13"));
+        vl1.setDataVenda(LocalDate.parse("2022-03-13"));
         this.addVendaLivro(vl1);
         
     }

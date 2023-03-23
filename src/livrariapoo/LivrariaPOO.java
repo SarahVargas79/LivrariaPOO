@@ -9,11 +9,14 @@ import controller.CCliente;
 import controller.CEditora;
 import controller.CLivro;
 import controller.CVendaLivro;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Scanner;
 import static livrariapoo.LivrariaPOO.leiaNumInt;
 import model.Cliente;
 import model.Editora;
 import model.Livro;
+import model.VendaLivro;
 import util.Validadores;
 
 /**
@@ -450,6 +453,56 @@ public class LivrariaPOO {
         }
     }//fim deletar livro
 
+    public static void vendaLivro() {
+        int idVendaLivro;
+        Cliente idCliente = null;
+        ArrayList<Livro> livros = new ArrayList<>();
+        float subTotal = 0;
+        LocalDate dataVenda = LocalDate.now();
+
+        do {//Seleciona cliente   
+            System.out.print("\nDigite o CPF do cliente: ");
+            String CPF = leia.nextLine();
+            if (Validadores.isCPF(CPF)) {
+                idCliente = cadCliente.getClienteCPF(CPF);
+                if (idCliente == null) {
+                    System.out.println("\nCliente não cadastrado, tente novamente!");
+                }
+            } else {
+                System.out.println("\nCPF inválido, tente novamente!");
+            }
+        } while (idCliente == null);
+
+        boolean venda = true;
+        do {
+            Livro li = null;
+            String isbn;
+            do {
+                System.out.print("\nDigite o ISBN: ");
+                isbn = leia.nextLine();
+                li = cadLivro.getLivroISBN(isbn);
+                if (li == null) {
+                    System.out.println("\nLivro não encontrado, tente novamente!");
+                }
+            } while (li == null);
+            if (li.getEstoque() > 0) {
+                livros.add(li);
+                cadLivro.atualizaEstoqueLivro(li.getIsbn());
+                subTotal += li.getPreco();
+            }else{
+                System.out.println("\n" + li.getTitulo() + " não tem mais estoque.");
+            }
+            System.out.println("\nDeseja comprar mais livros nesta venda? \n1 - sim | 2 -Não \nDigite sua opção: ");
+            if (leiaNumInt() == 2) {
+                venda = false;
+            }
+        } while (venda);
+        idVendaLivro = cadVendaLivro.geraID();
+        VendaLivro vl = new VendaLivro(idVendaLivro, idCliente, livros, subTotal, dataVenda);
+        cadVendaLivro.addVendaLivro(vl);
+        System.out.println("\n-- Venda --\n" + vl.toString());
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -532,6 +585,7 @@ public class LivrariaPOO {
                     break;
                 case 4:
                     System.out.println("\n-- Venda Livro --");
+                    vendaLivro();
                     break;
                 case 0:
                     System.out.println("\nAplicação encerrada pelo usuário!!");
