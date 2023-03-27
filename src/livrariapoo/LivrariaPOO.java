@@ -117,8 +117,10 @@ public class LivrariaPOO {
             } else {
                 System.out.print("\nInforme o nome do cliente: ");
                 nomeCliente = leia.nextLine();
+                nomeCliente = nomeCliente.toUpperCase();
                 System.out.print("\nInforme o endereço do cliente: ");
                 endereco = leia.nextLine();
+                endereco = endereco.toUpperCase();
                 System.out.print("\nInforme o telefone do cliente: ");
                 telefone = leia.nextLine();
                 idCliente = cadCliente.geraID();
@@ -215,7 +217,13 @@ public class LivrariaPOO {
             Cliente cli = cadCliente.getClienteCPF(cpf);
             if (cli != null) {
                 cadCliente.removeCliente(cli);
-                System.out.println("\nCliente deletado com sucesso!");
+                System.out.println("\nConfirmar deletar cliente? 1 - Sim | 2 - Não");
+                int opCliente = leiaNumInt();
+                if (opCliente == 1) {
+                    System.out.println("\nCliente deletado com sucesso!");
+                }else if (opCliente == 2) {
+                    System.out.println("\nUsuário cancelou remoção de cliente!");
+                }
             } else {
                 System.out.println("\nCliente não consta na base de dados!");
             }
@@ -253,8 +261,10 @@ public class LivrariaPOO {
             } else {
                 System.out.print("\nInforme o nome da editora: ");
                 nomeEditora = leia.nextLine();
+                nomeEditora = nomeEditora.toUpperCase();
                 System.out.print("\nInforme o endereço da editora: ");
                 endereco = leia.nextLine();
+                endereco = endereco.toUpperCase();
                 System.out.print("\nInforme o telefone da editora: ");
                 telefone = leia.nextLine();
                 System.out.print("\nInforme o nome do gerente da editora: ");
@@ -332,7 +342,13 @@ public class LivrariaPOO {
             Editora ed = cadEditora.getEditoraCNPJ(cnpj);
             if (ed != null) {
                 cadEditora.removeEditoras(ed);
-                System.out.println("\nEditora deletada com sucesso!");
+                System.out.println("\nConfirmar deletar editora? 1 - Sim | 2 - Não");
+                int opEdit = leiaNumInt();
+                if (opEdit == 1) {
+                    System.out.println("\nEditora deletada com sucesso!");
+                }else if (opEdit == 2) {
+                    System.out.println("\nUsuário cancelou remoção de editora!");
+                }
             } else {
                 System.out.println("\nEditora não consta na base de dados!");
             }
@@ -446,8 +462,14 @@ public class LivrariaPOO {
         String isbn = leia.nextLine();
         Livro li = cadLivro.getLivroISBN(isbn);
         if (li != null) {
-            System.out.println("\nLivro: " + li.getTitulo() + " deletado!");
+            System.out.println("\nConfirmar deletar livro? 1 - Sim | 2 - Não");
             cadLivro.removeLivros(li);
+            int opDelet = leiaNumInt();
+            if (opDelet == 1) {
+                System.out.println("\nLivro: " + li.getTitulo() + " deletado!");
+            }else if (opDelet == 2) {
+                System.out.println("Usuário cancelou remoção de livro!");
+            }
         } else {
             System.out.println("\nISBN não encontrado!");
         }
